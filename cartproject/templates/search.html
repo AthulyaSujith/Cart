@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+{% endblock %}
+
+{% block title %}
+Search
+{% endblock %}
+
+{% block content %}
+<div><br>
+
+    <h5 class="text-center" style="font-family:georgia,garamond,serif;"><text style="color:red">
+    Welcome to the ABC shopee We have variety of veg & non-veg dishes here..</text></h5>
+    <p class="text-center my-search-text">You have searched for:<b>"{{query}}"</b></p></div>
+
+          <div class="container">
+      <div class="row mx_auto">
+          {% for product in products %}
+          <div class="col-sm-3">
+
+
+               <br>
+
+      <div class="card text-center" style="min-width:18rem;">
+
+                   <a href="{{product.get_url}}">
+                        <img  class="card-img-top my_image" src="{{product.image2.url}}"  alt="{{product.name}}" width="400px" height="300px"></a></img>
+                <div class="card-body">
+                    <h4>{{product.name}}</h4>
+                    <p>{{product.price}}</p>
+
+                </div></div>
+           </div>
+{% empty %}
+        <div class="row mx_auto">
+        <p class="text-center my-search-text">0 results found</p>
+        </div>
+{% endfor %}
+      </div>
+   </div>
+   {% endblock %}

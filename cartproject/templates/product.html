@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+{{ product.description|truncatewords:155 }}
+
+
+
+{% endblock %}
+{% block title %}
+{% if category %}
+{{ product.name}} -- ABC Shopee
+
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="mx_auto"><p><!--<a href="{% url 'cartapp:allProductCat' %}">  &nbsp;Home  &nbsp;</a>||-->
+        &nbsp; <text style="color:red"><a href="{{product.get_url}}">&nbsp;Dish--> </a></text>
+        &nbsp;<text style="color:red">{{product.name}}</text>
+    </div>
+</div>
+<div class="container">
+<br>
+<div class="row">
+      <div class="col-sm-5">
+<br><br>
+            <img src="{{product.image2.url}}" width="400" height="250" alt="{{product.name}}">
+
+        </div><br>
+    <br>
+
+
+        <div class="col-sm-7">
+            <div>
+                <h1><u><span style="text-transform:uppercase">{{product.name}}</span></u></h1>
+            <p>RS - {{product.price}}</p>
+            <p class="my-title"><u>Product-Description</u></p>
+            <p class="text-justify my_prod_text">{{product.desc2}}</p>
+            {% if product.stock <= 0 %}
+            <p class="text-justify my_prod_text"><b><i>OUT OF STOCK</i></b></p>
+            {% else %}<br>
+            <a class="btn btn-secondary" href="{% url 'orderapp:add_cart' product.id %}">ADD TO CART</a>
+                {% endif %}
+    </div>
+</div>
+</div>
+</div>
+<br>
+<br>
+<br>
+    {% endblock %}

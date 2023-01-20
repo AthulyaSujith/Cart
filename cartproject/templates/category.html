@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+{% if category %}
+{{ category.description|truncatewords:155 }}
+{% else %}
+Welcome to ABC Shopee Where you can buy different items...
+{% endif %}
+{% endblock %}
+{% block title %}
+{% if category %}
+{{ category.name}} -- ABC Shopee
+{% else %}
+See our New collections -- ABC Shopee
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if category %}
+
+<div>
+    <div class="row my_row_class">
+        <div class="mx_auto">
+        <!--<p><a href="{% url 'cartapp:allProductCat' %}">Our Collections</a> </p>-->
+    </div></div>
+</div>
+{% endif %}
+<div class ="mx_auto">
+    {% if category %}
+   <!-- <img class="my_image" src="{{category.image1.url}}" alt={{category.name}}>-->
+</div>
+<br>
+<div>
+    <h1 style="font-family:georgia,garamond,serif;" class="text-center my-title">&nbsp;<text style="color:green"><b><u>{{category.name}}</u></b></text></h1><br>
+    <p style="font-family:cursive,georgia,garamond,serif;" class="desc1"><b>{{category.desc1}}</b></p>
+    <br>&nbsp;<text style="color:red">
+    <h6><b>Our healthy {{category.name}} are shown below, Order your favourite now on a click </b></h6></text>
+    </div>
+{% else %}
+<div>
+
+<img class="my_image my_image_padding" src="{% static 'img/banner7.png'%}" width="1350px" height="550px" alt="our products">
+    <hr><hr>
+</div>
+<div>
+    <h3 style="font-family:georgia,garamond,serif;" class="text-center my-title"><text style="color:red"><u>ABOUT</u></text></h3>
+    <p style="font-family:cursive,georgia,garamond,serif;" class="text-justify">Indian food is different from rest of the world not only in taste but also
+        in cooking methods. It reflects a perfect blend of various cultures and ages.
+        Just like Indian culture, food in India has also been influenced by various civilizations,
+        which have contributed their share in its overall development and the present form.
+Foods of India are better known for its spiciness.
+        Throughout India, be it North India or South India, spices are used generously in food.
+        But one must not forget that every single spice used in Indian dishes carries some or the other
+        nutritional as well as medicinal properties.</p><br>
+    </div>
+{% endif %}
+
+        <div class="container">
+      <div class="row mx_auto">
+     {% for product in products.object_list %}
+           <div class="my_bottom_margin col-9 col-sm-12 col-md-4 xol-lg-4">
+
+      <div class="card text-center" style="min-width:18rem;">
+
+                   <a href="{{product.get_url}}">
+                        <img  class="card-img-top my_image" src="{{product.image2.url}}"  alt="{{product.name}}" width="400px" height="300px"></a></img>
+                <div class="card-body">
+                    <h4>{{product.name}}</h4>
+                    <p>{{product.price}}</p>
+
+                </div></div>
+           </div>
+          {% endfor %}
+        </div>
+<div class="mx_auto">
+    {% if products.paginator.num_pages > 1 %}
+
+      <hr>
+    <div class="text-center">
+           {% for pg in products.paginator.page_range %}
+        <a href="?page={{pg}}" class="btn btn-light btn-sm   {% if products.number == pg %} active {% endif %}">{{pg}}</a>
+         {% endfor %}
+         </div>
+     {% endif %}
+    </div>
+    <br>
+</diV>
+
+{% endblock %}
